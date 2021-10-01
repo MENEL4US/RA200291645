@@ -1,25 +1,27 @@
 <?php
+    define("USER", "Luiz");
+    define("PASSWORD", '$2y$10$L3up6IPrANO7XqGtj3vexONbSq/G4FsLZE2d0ZzKMbl0hgMZEycJC');
 
     if (!empty($_POST["user"])) {
 
-        $_POST["password"] = password_hash(strtolower($_POST["password"]), PASSWORD_BCRYPT);
+        if (ucfirst($_POST["user"]) !== USER) {
+            http_response_code(401);
+            echo "Usuário incorreto!"; 
+            die();
+        }
 
-        // if (!empty($variables["senha"])) $variables["senha"] = 
+        if (!password_verify(strtolower($_POST["password"]), PASSWORD)) {
+            http_response_code(401);
+            echo "Senha incorreta!"; 
+            die();
+        }
 
-        echo "<pre>"; 
-        
-        print_r($_POST); 
-        
-        echo "</pre>"; 
-        
-        
+        session_start();
+        $_SESSION["USER"] = $_POST["user"];
+
+        echo "Sucesso!"; 
         die();
-
     }
-
-
-    // die();
-
 ?>
 
 <!doctype html>
@@ -39,8 +41,9 @@
     </div>
     
     <div class="row mt-4">
-        <div class="col-12">
-            <div id="login-response"></div>
+        <div class="col-12 text-center">
+            <div id="loginResponse">
+            </div>
         </div>
         <div class="col-4"></div>
         <div class="col-4">
@@ -62,20 +65,22 @@
     <script src="js/jquery-3.6.0.min.js"></script>
 
     <script>
-        $('#loginForm').submit(function(e){
-            e.preventDefault();
+        $('#loginForm').submit(function(e) {
+            e.preventDefault()
 
             $.ajax({
                 method: "POST",
                 url: 'login.php',
                 data: $('#loginForm').serialize()
             }).done(function(data) {
-                    console.log(data)
-                
-            }).fail(function(data){
-                console.log(data)
-            });
-        });
+                $('#loginResponse').html(`<h4 class="text-info">${data}</h4>`)
+                setTimeout(() => {
+                    window.location = "index.php";
+                }, 1000);
+            }).fail(function(data) {
+                $('#loginResponse').html(`<h4 class="text-danger">${data.responseText}</h4>`)
+            })
+        })
     </script>
 </body>
 </html>
