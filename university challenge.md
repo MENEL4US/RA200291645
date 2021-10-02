@@ -6,7 +6,7 @@ Se coloque na posição de desenvolvedor (a) WEB, que quer iniciar com vendas de
 
 3 - Codifique uma classe chamada de Student, e que este tenha os atributos privados: id, name, email, password, phone, course, status (ativo ou inativo), created_at, e updated_at.
 
-4 - Codifique uma classe chamada Courses, e que esta tenha os atributos privados: id, nameCourse, description, dateStart, dateFinish, status, created_at, e updated_at.
+> 4 - Codifique uma classe chamada Courses, e que esta tenha os atributos privados: id, nameCourse, description, dateStart, dateFinish, status, created_at, e updated_at.
 
 > 5 - O nome da sua base deve ser a palavra RA seguido do seu numero. Exemplo: RA1234565. Os nomes e os campos das tabelas devem ser idênticos ao das classes. Confira abaixo o que será armazenado em cada campo das tabelas.
 > Students = id (inteiro e identificador único), name (nome do aluno), email (email), password (senha), phone (telefone de contato), course (idCourse), status (ativo ou inativo), created_at (timeStamp), e updated_at (timeStamp).

@@ -4,7 +4,7 @@
 
     if (!empty($_POST["user"])) {
 
-        if (ucfirst($_POST["user"]) !== USER) {
+        if (ucfirst(strtolower($_POST["user"])) !== USER) {
             http_response_code(401);
             echo "Usuário incorreto!"; 
             die();
@@ -76,7 +76,7 @@
                 $('#loginResponse').html(`<h4 class="text-info">${data}</h4>`)
                 setTimeout(() => {
                     window.location = "index.php";
-                }, 1000);
+                }, 750);
             }).fail(function(data) {
                 $('#loginResponse').html(`<h4 class="text-danger">${data.responseText}</h4>`)
             })
