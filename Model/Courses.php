@@ -12,6 +12,38 @@
             $this->Connect();
         }
 
+        public function setDescription($description) {
+            $this->description = $description;
+        }
+
+        public function getDescription() {
+            return $this->description;
+        }
+
+        public function setNameCourse($nameCourse) {
+            $this->nameCourse = $nameCourse;
+        }
+
+        public function getNameCourse() {
+            return $this->nameCourse;
+        }
+
+        public function setDateFinish($dateFinish) {
+            $this->dateFinish = $dateFinish;
+        }
+
+        public function getDateFinish() {
+            return $this->dateFinish;
+        }
+
+        public function setDateStart($dateStart) {
+            $this->dateStart = $dateStart;
+        }
+
+        public function getDateStart() {
+            return $this->dateStart;
+        }
+
         public function inserir() {
 
             $query = "INSERT INTO courses (description, nameCourse, dateFinish, dateStart) VALUES (:description, :nameCourse, :dateFinish, :dateStart) ";
@@ -115,36 +147,20 @@
             return true;
         }
 
-        public function setDescription($description) {
-            $this->description = $description;
-        }
+        public function delete($id) {
 
-        public function getDescription() {
-            return $this->description;
-        }
+            $query = "DELETE FROM courses WHERE id = :id LIMIT 1";
 
-        public function setNameCourse($nameCourse) {
-            $this->nameCourse = $nameCourse;
-        }
+            try {
+                $consulta = $this->db->prepare($query);
+                $consulta->execute(array(
+                    "id" => $id
+                ));
 
-        public function getNameCourse() {
-            return $this->nameCourse;
-        }
-
-        public function setDateFinish($dateFinish) {
-            $this->dateFinish = $dateFinish;
-        }
-
-        public function getDateFinish() {
-            return $this->dateFinish;
-        }
-
-        public function setDateStart($dateStart) {
-            $this->dateStart = $dateStart;
-        }
-
-        public function getDateStart() {
-            return $this->dateStart;
+            } catch( PDOException $Exception ) {
+                return false;
+            }
+            return true;
         }
     }
 ?>

@@ -2,18 +2,18 @@
 <?php
     include_once "../Model/Courses.php";
     $cursos = new Courses();
-    $cursos = $cursos->listar();
-    // echo "<pre>";
-    // print_r($cursos); die();
-?>
 
-<style>
-    .table i:hover {
-        cursor: pointer;
+    if (!empty($_POST["tipo"]) && $_POST["tipo"] == "delete") {
+        if ($cursos->delete($_POST["id"])) {
+            echo "Deletado com sucesso!";
+        } else {
+            http_response_code(400);
+            echo "Erro ao tentar deletar"; 
+        }
+        die();
     }
-</style>
-
-
+    $cursos = $cursos->listar();
+?>
 
 <div class="row">
     <div class="col-12 mt-4">
@@ -25,10 +25,11 @@
 		</div>
     </div>
 
-    <div class="col-2"></div>
+    <div class="col-1"></div>
 
-    <div class="col-8">
+    <div class="col-10">
         <h3 class="text-center">Cursos</h3>
+        <h4 class="retorno-msg"></h4>
         <table class="table table-sm mt-4 table-bordered table-hover">
             <thead>
                 <tr>
@@ -88,6 +89,14 @@
     }
 
     function deleteCurso(id) {
-        loadAjax('./modulos/novocurso.php', 'workarea')
+        $.ajax({
+            method: "POST",
+            url: './modulos/cursos.php',
+            data: {tipo: 'delete', id}
+        }).done(function(data) {
+            loadAjax('./modulos/cursos.php', 'workarea')
+        }).fail(function(data) {
+            $('.retorno-msg').html(data.responseText).addClass('d-none')
+        })
     }
 </script>

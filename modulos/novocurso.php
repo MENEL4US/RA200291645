@@ -41,6 +41,7 @@
                 $curso->setDescription($_POST["description"]);
                 $curso->setDateStart($_POST["dateStart"]);
                 $curso->setDateFinish($_POST["dateFinish"]);
+                
                 if ($curso->inserir()) {
                     echo "Inserido com sucesso!";
                     die();
